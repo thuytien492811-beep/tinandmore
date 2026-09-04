@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nguyen Thi Thuy Tien — Portfolio (React preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  :root {
+    --color-paper: #F9F6EE;
+    --color-lime: #EAFAB5;
+    --color-header-font: #404040;
+    --color-perry: #0A5B6F;
+    --color-black: #000000;
+    --font-script: "La Belle Aurore", cursive;
+    --font-body: "Inter", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--color-paper); font-family: var(--font-body); color: var(--color-black); }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .site-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding: 25px clamp(20px, 2.6vw, 50px); }
+  .logo { color: var(--color-header-font); font-size: clamp(14px, 1.04vw, 20px); line-height: 1.75; text-decoration: none; background: none; border: none; cursor: pointer; font-family: var(--font-body); }
+  .nav { display: flex; gap: clamp(20px, 3.5vw, 67px); flex-wrap: wrap; }
+  .nav a, .nav button, .nav span { color: var(--color-header-font); font-size: clamp(14px, 1.04vw, 20px); line-height: 1.75; text-decoration: none; background: none; border: none; cursor: pointer; font-family: var(--font-body); padding: 0; }
+  .nav .active { color: var(--color-perry); }
+  .nav .disabled { pointer-events: none; opacity: 0.4; }
+  .text-script { font-family: var(--font-script); font-weight: 400; color: var(--color-perry); line-height: 1; }
+  .text-h2 { font-family: var(--font-body); font-weight: 600; font-size: 40px; color: var(--color-perry); margin: 0; }
+  .text-body-25 { font-size: 25px; line-height: 1.55; font-weight: 400; margin: 0; }
+  .text-body-20 { font-size: 20px; line-height: 1.75; font-weight: 400; margin: 0; }
+  .text-bold-20 { font-size: 20px; line-height: 1.75; font-weight: 700; margin: 0; }
+  .text-caption { font-size: 12px; line-height: 1.4; font-style: italic; font-weight: 300; margin: 0; }
+  .btn-connect { display: inline-flex; align-items: center; justify-content: center; padding: 20px 48px; background: #8f7fd6; color: var(--color-lime); font-weight: 600; font-size: 40px; text-transform: uppercase; text-decoration: none; border: none; border-radius: 6px; cursor: pointer; }
+  .bg-texture { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; pointer-events: none; z-index: 0; }
+  .section { position: relative; overflow: hidden; }
+
+  .home-page { position: relative; width: 100%; aspect-ratio: 1920 / 1080; min-height: 100vh; overflow: hidden; }
+  .home-polka { position: absolute; top: 5.46%; right: 2.99%; bottom: 3.06%; left: 3.63%; background-image: url("https://www.figma.com/api/mcp/asset/74cdf342-47d3-4aa6-84f1-a1b404445a7e.svg"); background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none; z-index: 0; }
+  .home-hero { position: relative; z-index: 1; width: 100%; height: 100%; }
+  .hero-tagline, .hero-title, .hero-year { position: absolute; margin: 0; white-space: nowrap; }
+  .hero-tagline { left: 59.4%; top: 24.5%; font-size: clamp(28px, 6.67vw, 128px); }
+  .hero-title { left: 2.6%; top: 55.3%; font-size: clamp(56px, 15.6vw, 300px); }
+  .hero-year { left: 84.3%; top: 71.7%; font-size: clamp(28px, 6.67vw, 128px); }
+
+  .about-page { min-height: 100vh; }
+  .about-content { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 40px clamp(20px, 2.6vw, 50px) 100px; }
+  .about-tapes { position: absolute; top: 90px; left: 0; width: 100%; z-index: -1; pointer-events: none; }
+  .tape { position: absolute; width: min(70vw, 900px); opacity: 0.9; }
+  .tape-purple-1 { top: 250px; left: -10%; transform: rotate(-1deg); }
+  .tape-purple-2 { top: 300px; left: -6%; width: min(60vw, 780px); transform: rotate(1deg); }
+  .tape-green-1 { top: 355px; left: -14%; width: min(75vw, 950px); }
+  .tape-green-2 { top: 400px; left: -8%; width: min(75vw, 950px); }
+  .tape-green-3 { top: 440px; left: -2%; width: min(75vw, 950px); }
+  .about-title { position: relative; z-index: 1; font-size: clamp(48px, 11vw, 200px); text-shadow: 4px 4px 15px var(--color-lime); margin: 0 0 40px; display: flex; flex-wrap: wrap; gap: 0 30px; }
+  .about-title span { font-size: 1.05em; }
+  .about-intro { max-width: 1050px; display: flex; flex-direction: column; gap: 24px; margin-bottom: 60px; }
+  .about-intro-lead { color: var(--color-perry); font-weight: 600; position: relative; padding-left: 45px; }
+  .dot-icon { position: absolute; left: 0; top: 4px; width: 24px; height: 24px; }
+  .scroll-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  .detail-columns { display: grid; grid-template-columns: 1fr; gap: 40px; max-width: 1050px; }
+  .about-col { display: flex; flex-direction: column; gap: 40px; }
+  .about-entry { margin-top: 16px; display: flex; flex-direction: column; gap: 2px; }
+  .about-entry-row { display: flex; justify-content: space-between; gap: 16px; }
+  .about-entry-date { white-space: nowrap; }
+  .photo-rail { align-self: start; position: sticky; top: 30px; }
+  .about-photo { position: relative; width: min(100%, 340px); aspect-ratio: 368 / 433; margin: 0 auto; background: var(--color-lime); padding: 22px 22px 44px; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15); }
+  .about-photo-frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+  .about-photo-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; background: #ddd; }
+  .about-photo-note { position: absolute; z-index: 1; bottom: 14px; right: 22px; }
+  .about-connect-btn { display: table; margin: 60px auto 0; }
+
+  @media (min-width: 560px) {
+    .scroll-layout { grid-template-columns: minmax(0, 1.5fr) minmax(160px, 1fr); align-items: start; gap: 24px; }
+  }
+  @media (min-width: 900px) {
+    .scroll-layout { grid-template-columns: 2fr 1fr; gap: 40px; }
+    .detail-columns { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 559px) {
+    .photo-rail { position: static; margin-bottom: 40px; }
+    .about-tapes { display: none; }
+  }
+  @media (max-width: 700px) {
+    .home-page { aspect-ratio: auto; min-height: 100vh; }
+    .hero-tagline, .hero-title, .hero-year { position: static; display: block; margin: 24px 20px; }
+  }
+
+  .preview-banner { background: #0A5B6F; color: #EAFAB5; font-size: 13px; text-align: center; padding: 6px; font-family: var(--font-body); }
+</style>
+</head>
+<body>
+<div class="preview-banner">React preview (CDN + Babel, chỉ để xem trước — bản thật nằm trong portfolio-react.zip)</div>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+function Header({ page, setPage }) {
+  return (
+    <header className="site-header">
+      <button className="logo" onClick={() => setPage("home")}>@Nguyen Thi Thuy Tien</button>
+      <nav className="nav">
+        <button className={page === "about" ? "active" : ""} onClick={() => setPage("about")}>About</button>
+        <span className="disabled">Works</span>
+        <span className="disabled">Playground</span>
+        <span className="disabled">Contact</span>
+      </nav>
+    </header>
+  );
+}
+
+function Home({ setPage }) {
+  return (
+    <div className="section home-page">
+      <img className="bg-texture" src="https://www.figma.com/api/mcp/asset/c5bcfd31-d795-446e-8a63-72864445d849.png" alt="" />
+      <div className="home-polka" />
+      <Header page="home" setPage={setPage} />
+      <main className="home-hero">
+        <p className="hero-tagline text-script">graphic design</p>
+        <h1 className="hero-title text-script">Portfolio</h1>
+        <p className="hero-year text-script">2026</p>
+      </main>
+    </div>
+  );
+}
+
+function About({ setPage }) {
+  const experience = [
+    ["Freelance Designer", "2025 - 2026", "-"],
+    ["Matkinhcom LLC", "2024 - 2025", "Marketing Executive"],
+    ["Nam Viet Joint Stock Company", "2024", "Marketing Executive"],
+    ["BHD Co. Ltd", "2023", "Marketing Intern"],
+    ["American Study Company", "2022", "Marketing Intern"],
+  ];
+  return (
+    <div className="section about-page">
+      <img className="bg-texture" src="https://www.figma.com/api/mcp/asset/05777453-6bb3-498c-b333-1545b8494075.png" alt="" />
+      <Header page="about" setPage={setPage} />
+      <main className="about-content">
+        <div className="about-tapes" aria-hidden="true">
+          <img className="tape tape-purple-1" src="https://www.figma.com/api/mcp/asset/76020944-e4d9-4567-82a5-708d18526e9d.png" alt="" />
+          <img className="tape tape-purple-2" src="https://www.figma.com/api/mcp/asset/76020944-e4d9-4567-82a5-708d18526e9d.png" alt="" />
+          <img className="tape tape-green-1" src="https://www.figma.com/api/mcp/asset/f6683fab-679f-401d-98ac-17e5d7f04cdf.png" alt="" />
+          <img className="tape tape-green-2" src="https://www.figma.com/api/mcp/asset/f6683fab-679f-401d-98ac-17e5d7f04cdf.png" alt="" />
+          <img className="tape tape-green-3" src="https://www.figma.com/api/mcp/asset/f6683fab-679f-401d-98ac-17e5d7f04cdf.png" alt="" />
+        </div>
+
+        <h1 className="about-title text-script">About<span>Me</span></h1>
+
+        <div className="about-intro">
+          <p className="text-body-25 about-intro-lead">
+            <img className="dot-icon" src="https://www.figma.com/api/mcp/asset/a92def98-d826-452e-9c2b-26f6b774520e.svg" alt="" />
+            Hi, I'm Tien - nearly two years into graphic design, still early in the craft, turning raw curiosity into visuals.
+          </p>
+          <p className="text-body-20">
+            Design shouldn't just look good - it has to work. With a background in marketing, I view every visual as a strategic tool rather than just artwork. I design with purpose at the core, ensuring every layout, detail, and movement acts intentionally to deliver real impact.
+          </p>
+        </div>
+
+        <div className="scroll-layout">
+          <div>
+            <div className="detail-columns">
+              <section className="about-col">
+                <div>
+                  <h2 className="text-h2">Education</h2>
+                  <div className="about-entry">
+                    <div className="about-entry-row">
+                      <p className="text-bold-20">Design Anthropology School | DAS</p>
+                      <p className="text-body-20 about-entry-date">2025 - 2026</p>
+                    </div>
+                    <p className="text-body-20">DAS Multi-disciplinary Designer</p>
+                  </div>
+                  <div className="about-entry">
+                    <div className="about-entry-row">
+                      <p className="text-bold-20">Hoa Sen University</p>
+                      <p className="text-body-20 about-entry-date">2019 - 2024</p>
+                    </div>
+                    <p className="text-body-20">Marketing</p>
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-h2">Tools</h2>
+                  <p className="text-bold-20">Adobe Photoshop</p>
+                  <p className="text-bold-20">Adobe Illustrator</p>
+                  <p className="text-bold-20">After Effects <span className="text-caption">(basic)</span></p>
+                  <p className="text-bold-20">InDesign <span className="text-caption">(basic)</span></p>
+                  <p className="text-bold-20">Figma</p>
+                </div>
+                <div>
+                  <h2 className="text-h2">Contact</h2>
+                  <p className="text-bold-20">+84 917211628</p>
+                  <p className="text-bold-20">thuytien492811@gmail.com</p>
+                </div>
+              </section>
+
+              <section className="about-col">
+                <div>
+                  <h2 className="text-h2">Experience</h2>
+                  {experience.map(([title, date, role]) => (
+                    <div className="about-entry" key={title}>
+                      <div className="about-entry-row">
+                        <p className="text-bold-20">{title}</p>
+                        <p className="text-body-20 about-entry-date">{date}</p>
+                      </div>
+                      <p className="text-body-20">{role}</p>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <h2 className="text-h2">Languages</h2>
+                  <p className="text-bold-20">Vietnamese <span className="text-caption">(native)</span></p>
+                  <p className="text-bold-20">English <span className="text-caption">(B2 level)</span></p>
+                </div>
+              </section>
+            </div>
+
+            <a href="mailto:thuytien492811@gmail.com" className="btn-connect about-connect-btn">Let's connect!</a>
+          </div>
+
+          <div className="photo-rail">
+            <div className="about-photo">
+              <img className="about-photo-frame" src="https://www.figma.com/api/mcp/asset/a534808e-64cb-4ea2-ba7f-aa4cae7aaba8.png" alt="" />
+              <img className="about-photo-img" src="https://www.figma.com/api/mcp/asset/0df148de-4be1-4868-bdd1-2ec1be429fbe.png" alt="Nguyen Thi Thuy Tien" />
+              <p className="text-caption about-photo-note">Scroll down for more</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+function App() {
+  const [page, setPage] = useState("home");
+  return page === "home" ? <Home setPage={setPage} /> : <About setPage={setPage} />;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

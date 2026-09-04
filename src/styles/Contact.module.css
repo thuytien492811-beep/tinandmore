@@ -1,0 +1,28 @@
+.contactPage {
+  min-height: 100vh;
+}
+
+.contactContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 40px) 50px 100px;
+}
+
+.contactTitle {
+  font-size: clamp(48px, 11vw, 200px);
+  text-shadow: 4px 4px 15px var(--color-lime);
+  margin: 0 0 40px;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.contactList a {
+  text-decoration: none;
+}

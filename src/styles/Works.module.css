@@ -1,0 +1,113 @@
+.page {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 1080;
+  min-height: calc(100vh - var(--header-height));
+  margin-top: var(--header-height);
+  overflow: hidden;
+}
+
+.title {
+  position: absolute;
+  left: 44.3%;
+  top: 7.5%;
+  width: 27.34%;
+  text-align: right;
+  font-size: clamp(48px, 11vw, 200px);
+  text-shadow: 4px 4px 15px var(--color-lime);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.caption {
+  position: absolute;
+  left: 2.6%;
+  top: 26.4%;
+  margin: 0;
+  max-width: 140px;
+}
+
+.card {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.cardLink {
+  cursor: pointer;
+}
+
+.cardImg {
+  display: block;
+  width: 100%;
+  max-width: none;
+}
+
+.cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #c5b5fa;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.cardLink:hover::after {
+  opacity: 0.45;
+}
+
+.cardCd {
+  left: 16.15%;
+  top: 0;
+  width: 29.01%;
+}
+
+.cardEditorial {
+  left: 20.16%;
+  top: 52.78%;
+  width: 24.84%;
+}
+
+.cardStrava {
+  left: 0;
+  top: 50%;
+  width: 17.55%;
+}
+
+.cardMuseum {
+  left: 74.48%;
+  top: 20.37%;
+  width: 25.52%;
+}
+
+.cardMenuLogo {
+  left: 48.18%;
+  top: 34.17%;
+  width: 22.97%;
+}
+
+@media (max-width: 900px) {
+  .page {
+    aspect-ratio: auto;
+    min-height: auto;
+  }
+
+  .title {
+    position: static;
+    width: auto;
+    text-align: left;
+    margin: 40px 20px 8px;
+  }
+
+  .caption {
+    position: static;
+    margin: 0 20px 30px;
+  }
+
+  .card {
+    position: static;
+    width: min(100%, 340px) !important;
+    margin: 0 auto 30px;
+  }
+}

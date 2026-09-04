@@ -1,0 +1,195 @@
+:root {
+  --color-paper: #F9F6EE;
+  --color-lime: #EAFAB5;
+  --color-header-font: #404040;
+  --color-perry: #0A5B6F;
+  --color-black: #000000;
+
+  --font-script: "La Belle Aurore", cursive;
+  /* Roobert-TRIAL is a paid font used in the original Figma file and isn't
+     available for the web — Inter is used here as the closest free substitute. */
+  --font-body: "Inter", sans-serif;
+
+  --header-height: 90px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background: var(--color-paper);
+  font-family: var(--font-body);
+  color: var(--color-black);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Header / Nav (shared on every page) ---------- */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0 clamp(20px, 2.6vw, 50px);
+  background: var(--color-paper);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo,
+.nav a,
+.nav .disabled {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 3px 8px;
+  margin: -3px -8px;
+  color: var(--color-header-font);
+  font-size: clamp(14px, 1.04vw, 20px);
+  line-height: 1.75;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(20px, 3.5vw, 67px);
+  flex-wrap: wrap;
+}
+
+.logo::before,
+.nav a::before,
+.nav .disabled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #7C3AED;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.nav a.active {
+  color: var(--color-perry);
+}
+
+.logo:hover,
+.nav a:hover,
+.nav .disabled:hover {
+  color: #fff;
+}
+
+.logo:hover::before,
+.nav a:hover::before,
+.nav .disabled:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav .disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ---------- Typography helpers ---------- */
+
+.text-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  color: var(--color-perry);
+  line-height: 1;
+}
+
+.text-h2 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 40px;
+  color: var(--color-perry);
+  margin: 0;
+}
+
+.text-body-25 {
+  font-size: 25px;
+  line-height: 1.55;
+  font-weight: 400;
+  margin: 0;
+}
+
+.text-body-20 {
+  font-size: 20px;
+  line-height: 1.75;
+  font-weight: 400;
+  margin: 0;
+}
+
+.text-bold-20 {
+  font-size: 20px;
+  line-height: 1.75;
+  font-weight: 700;
+  margin: 0;
+}
+
+.text-caption {
+  font-size: 12px;
+  line-height: 1.4;
+  font-style: italic;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ---------- Shared buttons ---------- */
+
+.btn-connect {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 48px;
+  background: #8f7fd6;
+  color: var(--color-lime);
+  font-weight: 600;
+  font-size: 40px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ---------- Page background texture ---------- */
+
+.bg-texture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section {
+  position: relative;
+}
